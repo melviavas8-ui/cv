@@ -3,9 +3,9 @@
 	"id": "cloudvisuals",
 	"version": "0.0.1+1.21.11",
 	"name": "Cloud Visuals",
-	"description": "Визуалы, за которые вас не забанят на серверах. Никаких читов - лишл визуал и удобство. Автор: KlodovkaDev",
+	"description": "Liquid Glass visual mod for Minecraft 1.21.11: glass menus and game screens, HUD editor, visuals and client-side cosmetics. No cheats. Жидкое стекло для Minecraft: меню, экраны, HUD, визуалы и косметика — без читов.",
 	"authors": [
-		"KlodovkaDev"
+		"Cloud Visuals"
 	],
 	"contact": {},
 	"license": "All-Rights-Reserved",

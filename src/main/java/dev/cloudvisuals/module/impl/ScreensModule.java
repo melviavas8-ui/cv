@@ -27,7 +27,7 @@ public final class ScreensModule extends Module {
       this.section("everywhere", 58406);
       this.glassButtons = this.add(new BoolSetting("glass_buttons", true));
       this.section("title", 57589);
-      this.title = this.add(new BoolSetting("title", true));
+      this.title = this.add(new BoolSetting("title", false));
       this.titlePlayer = this.add(new BoolSetting("title_player", true)).visibleWhen(this::titleOn);
       this.titleWhatsNew = this.add(new BoolSetting("title_whats_new", true)).visibleWhen(this::titleOn);
       this.titleSplash = this.add(new BoolSetting("title_splash", true)).visibleWhen(this::titleOn);
@@ -35,7 +35,7 @@ public final class ScreensModule extends Module {
       this.pause = this.add(new BoolSetting("pause", true));
       this.pauseInfo = this.add(new BoolSetting("pause_info", true)).visibleWhen(() -> this.pause.isOn());
       this.section("loading", 58006);
-      this.loading = this.add(new BoolSetting("loading", true));
+      this.loading = this.add(new BoolSetting("loading", false));
       this.status = this.add(new BoolSetting("status", true));
       this.section("servers", 57683);
       this.serverList = this.add(new BoolSetting("server_list", true));

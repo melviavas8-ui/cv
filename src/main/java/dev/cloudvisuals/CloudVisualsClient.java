@@ -172,8 +172,10 @@ public class CloudVisualsClient implements ClientModInitializer {
                }
 
                if (screen instanceof TitleScreen title) {
-                  Screens.getButtons(screen).add(new CloudVisualsMenuButton(screen, width - 74, 8, 66, 20));
-                  TitleDesign.layout(title, width, height);
+                  if (dev.cloudvisuals.module.impl.ScreensModule.titleScreen()) {
+                     Screens.getButtons(screen).add(new CloudVisualsMenuButton(screen, width - 74, 8, 66, 20));
+                     TitleDesign.layout(title, width, height);
+                  }
                } else if (screen instanceof GameMenuScreen pause && pause.shouldShowMenu()) {
                   if (PauseDesign.active()) {
                      PauseDesign.layout(pause, width, height);
