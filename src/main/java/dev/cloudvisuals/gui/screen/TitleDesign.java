@@ -230,9 +230,9 @@ public final class TitleDesign {
       SdfFont display = Fonts.get(FontWeight.DISPLAY_BOLD);
       SdfFont medium = Fonts.get(FontWeight.MEDIUM);
       if (display != null && medium != null) {
-         float markW = 17.0F;
-         float markH = markW * 1.34F;
-         MARK.draw(g, columnX, headerY, markW, 0.6F, fade);
+         float markW = 30.0F;
+         float markH = 17.0F * 1.34F;
+         MARK.drawStatic(g, columnX, headerY + (markH - markW * DropletLogo.ASPECT) / 2.0F, markW, fade);
          float size = 21.0F;
          float textX = columnX + markW + 8.0F;
          float centerY = headerY + markH * 0.58F;

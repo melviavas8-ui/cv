@@ -24,6 +24,10 @@ vec3 cloudvisuals_toGamma(vec3 c) {
     return pow(max(c, 0.0), vec3(1.0 / 2.2));
 }
 
+vec3 cloudvisuals_toLinear(vec3 c) {
+    return pow(max(c, 0.0), vec3(2.2));
+}
+
 float cloudvisuals_noise(vec2 fragCoord) {
     return fract(sin(dot(fragCoord, vec2(12.9898, 78.233))) * 43758.5453);
 }

@@ -196,7 +196,7 @@ public final class StatusDesign {
             icons.drawIcon(g, 58461, width / 2.0F, cy + r, 15.0F, ColorUtil.lerp(Theme.danger, -1, 0.25F));
          } else {
             float level = content.progress >= 0.0F ? progress.setTarget(content.progress).getFloat() : 0.42F + 0.12F * (float)Math.sin(Theme.time() * 1.6);
-            DROP.draw(g, width / 2.0F - 12.0F, cy, 24.0F, level, 1.0F);
+            DROP.draw(g, width / 2.0F - 20.0F, cy + (iconH - 40.0F * DropletLogo.ASPECT) / 2.0F, 40.0F, level, 1.0F);
          }
 
          cy += iconH + 10.0F;

@@ -23,12 +23,13 @@ public final class CloudVisualsSplash {
          int width = g.getScaledWindowWidth();
          int height = g.getScaledWindowHeight();
          float logoW = Math.clamp(Math.min(width * 0.1F, height * 0.16F), 22.0F, 84.0F);
-         float logoH = logoW * 1.34F;
+         float cloudW = logoW * 1.7F;
+         float logoH = cloudW * DropletLogo.ASPECT;
          float textSize = logoW * 0.3F;
          float blockH = logoH + logoW * 0.34F + textSize;
          float top = height * 0.47F - blockH / 2.0F;
          float level = 0.08F + 0.92F * Math.clamp(progress, 0.0F, 1.0F);
-         LOGO.draw(g, width / 2.0F - logoW / 2.0F, top, logoW, level, alpha);
+         LOGO.draw(g, width / 2.0F - cloudW / 2.0F, top, cloudW, level, alpha);
          WORDMARK.drawCentered(g, "CLOUD VISUALS", width / 2.0F, top + logoH + logoW * 0.34F, textSize, 0.3F, -855307, alpha);
       } catch (RuntimeException e) {
          failed = true;

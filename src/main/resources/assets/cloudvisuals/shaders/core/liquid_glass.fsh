@@ -55,6 +55,19 @@ layout(std140) uniform CloudVisualsParams {
     int RippleCount;
 };
 
+// Цветокоррекция подложки: контраст вокруг серого, яркость, насыщенность.
+vec3 cloudvisuals_applyColorMods(vec3 c, float sat, float bright, float contrast) {
+    c = (c - 0.5) * contrast + 0.5 + bright;
+    float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
+    return max(mix(vec3(luma), c, sat), 0.0);
+}
+
+// Тинт стекла: заливка (цвет или градиент) поверх подложки, считается по области Bounds.
+vec3 cloudvisuals_blendTint(vec3 c, vec2 p, int type, int count, float lab[16], vec4 stops, vec2 dir, vec2 center, float radius) {
+    vec4 t = cloudvisuals_paint(p - Bounds.xy, Bounds.zw, type, count, lab, stops, dir, center, radius);
+    return mix(c, t.rgb, clamp(t.a, 0.0, 1.0));
+}
+
 in vec2 texCoord0;
 in vec4 vertexColor;
 
@@ -66,13 +79,13 @@ float shapeDistance(vec2 p, int i) {
     vec2 halfSize = vec2(Shapes[o + 2], Shapes[o + 3]);
     vec4 radius = vec4(Radii[o], Radii[o + 1], Radii[o + 2], Radii[o + 3]);
     vec4 corner = vec4(Corners[o], Corners[o + 1], Corners[o + 2], Corners[o + 3]);
-    return minee_roundedBox(p - center, halfSize, radius, corner);
+    return cloudvisuals_roundedBox(p - center, halfSize, radius, corner);
 }
 
 float scene(vec2 p) {
     float d = 100000.0;
     for (int i = 0; i < ShapeCount; i++) {
-        d = minee_smoothMin(d, shapeDistance(p, i), Merge);
+        d = cloudvisuals_smoothMin(d, shapeDistance(p, i), Merge);
     }
     return d;
 }
@@ -94,19 +107,19 @@ vec2 nearestCenter(vec2 p) {
 vec3 backdrop(vec2 uv) {
     float level = clamp(Blur, 0.0, 1.0) * 3.0;
     if (level < 1.0) {
-        return mix(texture(Sampler0, uv).rgb, minee_toGamma(texture(Sampler1, uv).rgb), level);
+        return mix(texture(Sampler0, uv).rgb, cloudvisuals_toGamma(texture(Sampler1, uv).rgb), level);
     }
     if (level < 2.0) {
-        return mix(minee_toGamma(texture(Sampler1, uv).rgb), minee_toGamma(texture(Sampler2, uv).rgb), level - 1.0);
+        return mix(cloudvisuals_toGamma(texture(Sampler1, uv).rgb), cloudvisuals_toGamma(texture(Sampler2, uv).rgb), level - 1.0);
     }
-    return mix(minee_toGamma(texture(Sampler2, uv).rgb), minee_toGamma(texture(Sampler3, uv).rgb), level - 2.0);
+    return mix(cloudvisuals_toGamma(texture(Sampler2, uv).rgb), cloudvisuals_toGamma(texture(Sampler3, uv).rgb), level - 2.0);
 }
 
 vec2 flow(vec2 p) {
     float t = Time * WobbleSpeed;
     vec2 q = p * (0.04 / max(WobbleScale, 0.05));
-    return vec2(minee_valueNoise(q + vec2(t * 0.7, t * 0.3)),
-                minee_valueNoise(q + vec2(-t * 0.4, t * 0.6) + 19.3)) * 2.0 - 1.0;
+    return vec2(cloudvisuals_valueNoise(q + vec2(t * 0.7, t * 0.3)),
+                cloudvisuals_valueNoise(q + vec2(-t * 0.4, t * 0.6) + 19.3)) * 2.0 - 1.0;
 }
 
 void main() {
@@ -192,18 +205,18 @@ void main() {
 
     // Процедурное зерно
     if (Grain > 0.0) {
-        float noise = minee_valueNoise(p * 2.0 + vec2(Time * 10.0));
+        float noise = cloudvisuals_valueNoise(p * 2.0 + vec2(Time * 10.0));
         col += vec3((noise - 0.5) * Grain);
     }
 
     // Цветокоррекция подложки
-    col = minee_applyColorMods(col, Saturation, Brightness, Contrast);
+    col = cloudvisuals_applyColorMods(col, Saturation, Brightness, Contrast);
 
     // Применение тинта (окрашивания), если задано в GUI
     if (TintCount > 0) {
-        col = minee_blendTint(col, p, TintType, TintCount, TintLab, TintPos, TintDir, TintCenter, TintRadius);
+        col = cloudvisuals_blendTint(col, p, TintType, TintCount, TintLab, TintPos, TintDir, TintCenter, TintRadius);
     }
 
-    fragColor = vec4(minee_toLinear(col), mask * vertexColor.a);
+    fragColor = vec4(cloudvisuals_toLinear(col), mask * vertexColor.a);
 }
 
