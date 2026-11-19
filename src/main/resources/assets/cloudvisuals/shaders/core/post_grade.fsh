@@ -5,7 +5,7 @@
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D HistorySampler;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     float Saturation;
     float Contrast;
     float Vibrance;

@@ -5,7 +5,7 @@
 // (для тени и контурного свечения), не трогая прозрачность.
 
 uniform sampler2D Sampler0;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     vec4 Silhouette;       // rgb — цвет, a — насколько перекрасить (0 — картинка как есть)
 };
 

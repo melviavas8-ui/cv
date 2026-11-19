@@ -16,7 +16,7 @@
 in vec2 texCoord0;
 in vec4 vertexColor;
 
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     float Extent;       // половина кадра в радиусах тени
     float Inclination;  // наклон диска к лучу зрения, радианы (0 — точно с ребра)
     float Time;

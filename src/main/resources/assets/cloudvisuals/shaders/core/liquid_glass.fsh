@@ -1,8 +1,8 @@
 #version 330
 #moj_import <minecraft:dynamictransforms.glsl>
 
-#moj_import <angelvisuals:shape.glsl>
-#moj_import <angelvisuals:paint.glsl>
+#moj_import <cloudvisuals:shape.glsl>
+#moj_import <cloudvisuals:paint.glsl>
 
 // Angel Visuals — жидкое стекло: преломление у края, линза, «живая» жидкость,
 // непрерывная световая полоса (iOS 26), френель, внутренняя тень,
@@ -13,7 +13,7 @@ uniform sampler2D Sampler1;     // лёгкое размытие (линейны
 uniform sampler2D Sampler2;     // среднее размытие
 uniform sampler2D Sampler3;     // сильное размытие
 
-layout(std140) uniform MineeParams {
+layout(std140) uniform CloudVisualsParams {
     vec2 OutSize;           // размер экрана, px
     float PixelScale;       // экранных пикселей в одном GUI-пикселе
     float Time;             // секунды — для анимаций

@@ -4,7 +4,7 @@
 uniform sampler2D DiffuseSampler;
 // Силуэты предметов в руке (альфа 1 внутри предмета): там свечение приглушается, и ореол остаётся только вокруг контура
 uniform sampler2D MaskSampler;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     float Cut;
     float Strength;
     float Saturation;

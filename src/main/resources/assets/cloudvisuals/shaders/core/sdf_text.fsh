@@ -2,7 +2,7 @@
 #moj_import <minecraft:dynamictransforms.glsl>
 
 uniform sampler2D Sampler0;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     float DistPerTexel;   // на сколько меняется значение атласа при сдвиге на один тексель
 };
 

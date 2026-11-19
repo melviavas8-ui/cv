@@ -1,12 +1,12 @@
 #version 330
 #moj_import <minecraft:dynamictransforms.glsl>
 
-#moj_import <angelvisuals:shape.glsl>
+#moj_import <cloudvisuals:shape.glsl>
 
 // Часть текстуры (например, лицо скина) в фигуре с настраиваемыми углами.
 
 uniform sampler2D Sampler0;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     vec2 Size;
     vec4 Radius;
     vec4 Corner;
@@ -20,7 +20,7 @@ out vec4 fragColor;
 
 void main() {
     vec2 halfSize = Size * 0.5;
-    float d = angelvisuals_roundedBox(texCoord0 - halfSize, halfSize, Radius, Corner);
+    float d = cloudvisuals_roundedBox(texCoord0 - halfSize, halfSize, Radius, Corner);
     float mask = clamp(0.5 - d / max(fwidth(d), 0.0001), 0.0, 1.0);
     if (mask <= 0.0) {
         discard;

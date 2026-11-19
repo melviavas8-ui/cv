@@ -1,12 +1,12 @@
 #version 330
 #moj_import <minecraft:dynamictransforms.glsl>
 
-#moj_import <angelvisuals:shape.glsl>
-#moj_import <angelvisuals:paint.glsl>
+#moj_import <cloudvisuals:shape.glsl>
+#moj_import <cloudvisuals:paint.glsl>
 
 // Поверхность AngelVisuals: заливка, обводка, тень снаружи или внутри — для фигуры с любыми углами.
 
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     vec2 Size;           // размер фигуры, px
     vec4 Radius;         // радиусы углов
     vec4 Corner;         // форма углов (см. shape.glsl)
@@ -36,10 +36,10 @@ void main() {
     float coverage;
 
     if (Mode == 2) {
-        float d = angelvisuals_roundedBox(p - Offset, halfSize, Radius, Corner) - Spread;
-        coverage = 0.5 - 0.5 * angelvisuals_erf(d / (max(Blur, 0.001) * 1.41421356));
+        float d = cloudvisuals_roundedBox(p - Offset, halfSize, Radius, Corner) - Spread;
+        coverage = 0.5 - 0.5 * cloudvisuals_erf(d / (max(Blur, 0.001) * 1.41421356));
     } else {
-        float d = angelvisuals_roundedBox(p, halfSize, Radius, Corner);
+        float d = cloudvisuals_roundedBox(p, halfSize, Radius, Corner);
         float pixel = max(fwidth(d), 0.0001);
         float inside = clamp(0.5 - d / pixel, 0.0, 1.0);
         if (Mode == 0) {
@@ -47,20 +47,20 @@ void main() {
         } else if (Mode == 1) {
             coverage = inside - clamp(0.5 - (d + Thickness) / pixel, 0.0, 1.0);
         } else if (Mode == 3) {
-            float shifted = angelvisuals_roundedBox(p - Offset, halfSize, Radius, Corner) + Spread;
-            coverage = inside * (0.5 + 0.5 * angelvisuals_erf(shifted / (max(Blur, 0.001) * 1.41421356)));
+            float shifted = cloudvisuals_roundedBox(p - Offset, halfSize, Radius, Corner) + Spread;
+            coverage = inside * (0.5 + 0.5 * cloudvisuals_erf(shifted / (max(Blur, 0.001) * 1.41421356)));
         } else {
             coverage = 1.0 - inside;
         }
     }
 
     vec4 color = PaintType == 4 ? vertexColor
-            : angelvisuals_paint(texCoord0, Size, PaintType, PaintCount, PaintLab, PaintPos, PaintDir, PaintCenter, PaintRadius) * vertexColor;
+            : cloudvisuals_paint(texCoord0, Size, PaintType, PaintCount, PaintLab, PaintPos, PaintDir, PaintCenter, PaintRadius) * vertexColor;
     color *= ColorModulator;
     color.a *= coverage;
     if (color.a <= 0.0) {
         discard;
     }
-    color.rgb += (angelvisuals_noise(gl_FragCoord.xy) - 0.5) / 255.0;
+    color.rgb += (cloudvisuals_noise(gl_FragCoord.xy) - 0.5) / 255.0;
     fragColor = color;
 }

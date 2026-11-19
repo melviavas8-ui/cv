@@ -12,7 +12,7 @@
 in vec2 texCoord0;   // x — вдоль полосы (0..1 вокруг неба), y — поперёк (0.5 — середина)
 in vec4 vertexColor;
 
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     float Time;
     float Strength;     // общая видимость: ночь, дождь, ползунок
     float Density;      // насколько плотные клочья

@@ -1,7 +1,7 @@
 #version 330
 
 uniform sampler2D DiffuseSampler;
-layout(std140) uniform AngelVisualsParams {
+layout(std140) uniform CloudVisualsParams {
     vec2 HalfPixel;
     float Offset;
     float Linearize;
