@@ -1,0 +1,11 @@
+{
+    "vertex": "cloudvisuals:blit",
+    "fragment": "cloudvisuals:kawase_up",
+    "samplers": [
+        { "name": "DiffuseSampler" }
+    ],
+    "uniforms": [
+        { "name": "HalfPixel", "type": "float", "count": 2, "values": [ 0.0, 0.0 ] },
+        { "name": "Offset", "type": "float", "count": 1, "values": [ 1.0 ] }
+    ]
+}

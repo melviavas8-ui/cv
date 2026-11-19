@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "cloudvisuals",
+	"version": "0.0.1+1.21.11",
+	"name": "Cloud Visuals",
+	"description": "Визуалы, за которые вас не забанят на серверах. Никаких читов - лишл визуал и удобство. Автор: KlodovkaDev",
+	"authors": [
+		"KlodovkaDev"
+	],
+	"contact": {},
+	"license": "All-Rights-Reserved",
+	"icon": "assets/cloudvisuals/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"dev.cloudvisuals.CloudVisualsClient"
+		],
+		"modmenu": [
+			"dev.cloudvisuals.compat.CloudVisualsModMenu"
+		]
+	},
+	"mixins": [
+		"cloudvisuals.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}
